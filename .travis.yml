@@ -13,10 +13,10 @@ matrix:
   include:
     # Images used in testing PR and try-build should be run first.
     - env: IMAGE=x86_64-gnu-llvm-3.7 RUST_BACKTRACE=1
-      if: type = pull_request OR branch = auto
+      if: type = pull_request AND branch = auto
 
     - env: IMAGE=dist-x86_64-linux DEPLOY=1
-      if: branch = try OR branch = auto
+      if: branch = auto OR branch = auto
 
     # "alternate" deployments, these are "nightlies" but don't have assertions
     # turned on, they're deployed to a different location primarily for projects
@@ -110,7 +110,7 @@ matrix:
 
     # Linux builders, remaining docker images
     - env: IMAGE=arm-android
-      if: branch = auto
+      if: branch = try OR branch = auto
     - env: IMAGE=armhf-gnu
       if: branch = auto
     - env: IMAGE=cross DEPLOY=1
